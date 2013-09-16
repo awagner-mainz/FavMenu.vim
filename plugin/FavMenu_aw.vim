@@ -56,7 +56,7 @@ if !exists('$FAVOURITES')
   if has('unix')
     let $FAVOURITES=$HOME.'/.vimfavourites'
   el
-    let $FAVOURITES=$HOME.'/vimfiles/_vimfavourites'
+    let $FAVOURITES=$HOME.'/vimfiles/.vimfavourites'
   en
 en
 
