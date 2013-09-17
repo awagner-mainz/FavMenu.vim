@@ -56,7 +56,7 @@ if !exists('$FAVOURITES')
   if has('unix')
     let $FAVOURITES=$HOME.'/.vimfavourites'
   el
-    let $FAVOURITES=$HOME.'/vimfiles/.vimfavourites'
+    let $FAVOURITES=$HOME.'/vimfiles/_vimfavourites'
   en
 en
 
@@ -193,6 +193,15 @@ if $LANG=='hu'
   menutrans &Remove\ current\ file	&Aktuális\ fájl\ eltávolítása
   menutrans &Edit\ favourites		K&edvencek\ rendezése
   menutrans Re&fresh			A&ktualizálás
+en
+
+if $LANG=='de'
+  menutrans Fa&vourites				Fa&voriten
+  menutrans &Add\ current\ file		&Aktuelle\ Datei\ hinzufügen
+  menutrans &Remove					&Entfernen
+  menutrans &Remove\ current\ file	Aktuelle\ Datei\ &entfernen
+  menutrans &Edit\ favourites		Favoriten\ &bearbeiten
+  menutrans Re&fresh				A&ktualisieren
 en
 
 sil! cal FavmenuInit()
