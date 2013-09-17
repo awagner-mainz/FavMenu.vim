@@ -38,26 +38,47 @@
 "
 " TODO:
 "    Are all valid filenames escaped? (Feedback please!)
+
+
+
+" Abort if loaded already (added by Andreas Wagner on 20040712):
+if exists('g:favmenu_loaded')
+    finish
+endif
+let g:favmenu_loaded=1
+
+
+
+
 let s:cascade_del=exists('fav_cascade_del')
 
 if !exists('$FAVOURITES')
   if has('unix')
     let $FAVOURITES=$HOME.'/.vimfavourites'
   el
-    let $FAVOURITES=$VIM.'\_vimfavourites'
+    let $FAVOURITES=$HOME.'/vimfiles/_vimfavourites'
   en
 en
 
-if !exists('SpWhenModified') "integration with FavMenu
-  fu! SpWhenModified(f)
+if !exists('SpWhenModified') "integration with FavMenu {{{
+  fu! SpWhenModified(f) "splits only when curr buf is modified
+    let fesc = escape( a:f, " %" )
     if &mod
-      exe 'sp '.a:f
+      if (exists('g:openInTabs') && g:toggleTabs==1)
+        exe 'tabe '.a:f
+      else
+        exe 'sp '.a:f
+      endif
     el
-      exe 'e '.a:f
+      if (exists('g:openInTabs') && g:toggleTabs==1)
+	    exe 'tabe '.a:f
+	  else
+	    exe 'e '.a:f
+	  endif
     en
   endf
-  fu! SpWhenNamedOrModified(f)
-    if bufname('')!='' || &mod
+  fu! SpWhenNamedOrModified(f) "splits, when curr buf has name, or is modified
+    if bufname('%')!='' || &mod
       exe 'sp '.a:f
     el
       exe 'e '.a:f
@@ -81,7 +102,7 @@ if !exists('SpWhenModified') "integration with FavMenu
     en
     retu p
   endf
-en
+end "}}}
 
 fu! s:AddThisFile(name)
   let fullname=fnamemodify(a:name,':p')
